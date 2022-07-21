@@ -15,7 +15,7 @@ def get_rosters():
     league_data = run_query("SELECT * FROM league_session WHERE manager_id=?",[manager_id])
     league_id = league_data[0][1]
     # Get the league_id to get the roster from that league
-    roster_data = run_query("SELECT rosters.player_id, players.player, players.pos, players.team, team_logos.logo_url FROM rosters JOIN players ON players.id=rosters.player_id RIGHT JOIN team_logos ON team_logos.team_name=players.team WHERE rosters.manager_id=? and rosters.league_id=?",[manager_id, league_id])
+    roster_data = run_query("SELECT rosters.player_id, players.player, players.pos, players.team, team_logos.logo_url FROM rosters JOIN players ON players.id=rosters.player_id RIGHT JOIN team_logos ON team_logos.team_name=players.team WHERE rosters.league_id=? and rosters.manager_id=?",[manager_id, league_id])
     print(roster_data)
     resp = []
     for item in roster_data:
