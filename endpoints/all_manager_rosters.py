@@ -5,8 +5,8 @@ import uuid
 
 @app.get('/api/all-manager-rosters')
 def get_all_rosters():
-    data = request.args
-    manager_id = data.get('managerId')
+    params = request.args
+    manager_id = params.get('managerId')
     roster_data = run_query("SELECT rosters.manager_id, players.player, players.pos,players.team FROM rosters RIGHT JOIN players ON players.id=rosters.player_id WHERE rosters.manager_id=?",[manager_id])
     print(roster_data)
     resp = []

@@ -38,13 +38,13 @@ def get_league_info():
     else:
         print(manager_info)
             # Collect client info in resp list and return to client
-        league_list = run_query("SELECT * FROM leagues WHERE manager_id=?", [manager_id])
+        league_list = run_query("SELECT league_session.league_id, leagues.name FROM league_session RIGHT JOIN leagues ON leagues.id=league_session.league_id WHERE league_session.manager_id=?", [manager_id])
         print(league_list)
         resp = []
         for item in league_list:
             league = {}
             league['leagueId'] = item[0]
-            league['name'] = item[2]
+            league['name'] = item[1]
             resp.append(league)
         return jsonify(resp), 200
             

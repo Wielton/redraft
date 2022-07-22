@@ -26,26 +26,6 @@ def encrypt_password(password):
 #   2. 422 = Unprocessable because of lacking required info from manager 
 #   3. 500 = Internal Server Error
 
-# Get manager info
-
-@app.get('/api/all-managers')
-def get_manager_info():
-    params = request.args
-    session_token = params.get('sessionToken')
-    manager_data = run_query("SELECT * FROM manager_session WHERE token=?",[session_token])
-    manager_id = manager_data[0][1]
-    league_info = run_query("SELECT * FROM league_session WHERE manager_id=?",[manager_id])
-    league_id = league_info[0][1]
-    all_managers = run_query("SELECT league_session.manager_id, manager.username FROM league_session RIGHT JOIN manager ON manager.id=league_session.manager_id WHERE league_id=?",[league_id])
-    print('These are the managers: ',all_managers)
-    # Now get names of all managers
-    resp = []
-    for item in all_managers:
-        manager = {}
-        manager['managerId'] = item[0]
-        manager['username'] = item[1]
-        resp.append(manager)
-    return jsonify(resp)
 
 
 @app.post('/api/manager')

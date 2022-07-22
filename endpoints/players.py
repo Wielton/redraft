@@ -25,12 +25,15 @@ def get_players():
     for index, roster_player in enumerate(roster_ids):
         unavailable_players.append(roster_player[0])
     # Unavailable_players is now a list of player_ids as INT
-    # print("These are unavailable player_ids: ",index, ":", unavailable_players)
     
-    master_players_list = []
+    # master_players_list = []
     # available_players = []
-    for index, master_players in enumerate(players_list):
-        master_players_list.append(master_players[0])
+    # for index, master_players in enumerate(players_list):
+    #     master_players_list.append = master_players[0]
+        
+
+        
+        
     #     if roster_player[0] != players_list[0]:
     #         available_players.append(master_players)
     # # Master player list player ids as INT
@@ -39,22 +42,23 @@ def get_players():
     #  I have a master player list and an unavailable player list
     
     sorted_unavailable_players = sorted(unavailable_players)
-    print(master_players_list)
-    print(sorted_unavailable_players)
     final_players = []
-    for i in master_players_list[:]:
-        if i not in sorted_unavailable_players:
-            final_players.append(i)
+    # for i in master_players_list[:]:
+    #     if i not in sorted_unavailable_players:
+    #         final_players.append(i)
+    print("These are unavailable player_ids: ",index, ":", sorted_unavailable_players)
+    
     resp = []
-    for players in final_players:
+    for players in players_list:
         player = {}
-        player['playerId'] = players
-        # player['name'] = players[1]
-        # player['position'] = players[2]
-        # player['team'] = players[3]
-        # player['adp'] = players[4]
-        # player['logoUrl'] = players[5]
-        resp.append(player)
+        if players[0] not in sorted_unavailable_players:
+            player['playerId'] = players[0]
+            player['name'] = players[1]
+            player['position'] = players[2]
+            player['team'] = players[3]
+            player['adp'] = players[4]
+            player['logoUrl'] = players[5]
+            resp.append(player)
     return jsonify(resp), 200
 
 
